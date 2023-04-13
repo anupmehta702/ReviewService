@@ -1,5 +1,7 @@
 package com.commerce.review;
 
+import com.commerce.review.DAO.DAOImpl.InMemoryDaoImpl;
+import com.commerce.review.DAO.ProductReviewDAO;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +21,11 @@ public class ReviewApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ReviewApplication.class, args);
+	}
+
+	@Bean
+	public ProductReviewDAO productReviewDAO(){
+		return new InMemoryDaoImpl();
 	}
 
 	@Bean

@@ -6,11 +6,6 @@ import java.util.Objects;
 public class ProductReview {
     @NotNull(message = "ProductId cannot be null!")
     private String productId;
-
-    public String getProductId() {
-        return productId;
-    }
-
     private int averageReviewScore;
     private int noOfReviews;
 
@@ -22,6 +17,10 @@ public class ProductReview {
         this.productId = productId;
         this.averageReviewScore = averageReviewScore;
         this.noOfReviews = noOfReviews;
+    }
+
+    public String getProductId() {
+        return productId;
     }
 
     @Override
