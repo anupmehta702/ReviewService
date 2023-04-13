@@ -1,0 +1,19 @@
+server:
+  port: 8080
+my:
+  prop: defaultProfile
+---
+spring:
+  config:
+    activate:
+      on-profile: qa1
+my:
+  prop: QA1Profile
+---
+spring:
+  config:
+    activate:
+      on-profile: qa2
+my:
+  prop: QA2Profile
+
