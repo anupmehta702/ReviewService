@@ -1,0 +1,19 @@
+services:
+    review-service-backend-1:
+        image: myorg/reviewservice:latest
+        ports:
+            - 8080:8080
+        networks:
+            - review-service-network
+    review-service-backend-2:
+        build:
+            context: ./review-service
+            dockerfile: Dockerfile        
+        ports:
+            - 8081:8080
+        networks:
+            - review-service-network
+            
+networks:
+    review-service-network:
+        driver: bridge
