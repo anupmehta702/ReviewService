@@ -13,3 +13,4 @@ TODO
 RUN command - 
 1) go to base project 
 2) run command docker-compose up
+other docker-compose commands - docker-compose build ,  docker-compose down 

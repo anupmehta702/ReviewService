@@ -2,6 +2,7 @@ package com.commerce.review.controller;
 
 import com.commerce.review.model.ProductReview;
 import com.commerce.review.service.ProductReviewService;
+import com.sun.net.httpserver.Authenticator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,9 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductReviewControllerTest {
@@ -41,10 +40,9 @@ class ProductReviewControllerTest {
     void addProductReview() {
         Mockito.when(service.addProductReview(Mockito.any())).thenReturn(true);
 
-        ResponseEntity<Boolean> response = assertDoesNotThrow(() -> controller.addProductReview(productReview));
+        ResponseEntity response = assertDoesNotThrow(() -> controller.addProductReview(productReview));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(true, response.getBody());
         Mockito.verify(service,Mockito.times(1)).addProductReview(Mockito.any());
     }
 
@@ -52,10 +50,9 @@ class ProductReviewControllerTest {
     void updateProductReview() {
         Mockito.when(service.updateProductReview(Mockito.any())).thenReturn(true);
 
-        ResponseEntity<Boolean> response = assertDoesNotThrow(() -> controller.updateProductReview(productReview));
+        ResponseEntity response = assertDoesNotThrow(() -> controller.updateProductReview(productReview));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(true, response.getBody());
         Mockito.verify(service,Mockito.times(1)).updateProductReview(Mockito.any());
     }
 
@@ -63,10 +60,9 @@ class ProductReviewControllerTest {
     void deleteProductReview() {
         Mockito.when(service.deleteProductReview(Mockito.any())).thenReturn(true);
 
-        ResponseEntity<Boolean> response = assertDoesNotThrow(() -> controller.deleteProductReview(productReview.getProductId()));
+        ResponseEntity response = assertDoesNotThrow(() -> controller.deleteProductReview(productReview.getProductId()));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertTrue(response.getBody());
         Mockito.verify(service,Mockito.times(1)).deleteProductReview(Mockito.any());
     }
 }

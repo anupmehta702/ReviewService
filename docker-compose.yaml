@@ -1,19 +1,36 @@
 services:
     review-service-backend-1:
-        image: myorg/reviewservice:latest
+        environment:
+            - app.name=backend-1    
+        build:
+            context: ./review-service
+            dockerfile: Dockerfile                
         ports:
-            - 8080:8080
+            - 8181:8080
         networks:
             - review-service-network
     review-service-backend-2:
+        environment:
+            - app.name=backend-2
         build:
             context: ./review-service
             dockerfile: Dockerfile        
         ports:
-            - 8081:8080
+            - 8282:8080
         networks:
             - review-service-network
-            
+    loadbalancer:
+        build:
+            context: ./loadbalancer
+            dockerfile: Dockerfile        
+        ports:
+            - 9090:9090
+        networks:
+            - review-service-network
+        depends_on:
+            - review-service-backend-1
+            - review-service-backend-2
+        
 networks:
     review-service-network:
         driver: bridge

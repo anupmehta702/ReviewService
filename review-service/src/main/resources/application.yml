@@ -2,6 +2,9 @@ server:
   port: 8080
 my:
   prop: defaultProfile
+app:
+  id: ${app.name:default_app}
+
 ---
 spring:
   config:
