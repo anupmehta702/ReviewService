@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-class ProductServiceTest {
+class ProductReviewServiceTest {
 
     @Mock
     ProductReviewDAO dao;
 
     @InjectMocks
-    private ProductService service;
+    private ProductReviewService service;
 
     private ProductReview productReview = new ProductReview("AB1234", 4, 100);
 

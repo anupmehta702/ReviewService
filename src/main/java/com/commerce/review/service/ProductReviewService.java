@@ -8,16 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService {
+public class ProductReviewService {
 
     @Autowired
     private ProductReviewDAO daoImpl;
 
-    public ProductService(ProductReviewDAO daoImpl) {
+    public ProductReviewService(ProductReviewDAO daoImpl) {
         this.daoImpl = daoImpl;
     }
 
-    ProductReview getProductReview(String productId) {
+    public ProductReview getProductReview(String productId) {
         ProductReview productReview = daoImpl.getProductReview(productId);
         if (productReview == null) {
             throw new ProductDoesNotExistException("Product does not exist !");
@@ -25,15 +25,15 @@ public class ProductService {
         return productReview;
     }
 
-    boolean addProductReview(ProductReview productReviewToAdd) {
+    public boolean addProductReview(ProductReview productReviewToAdd) {
         boolean result = daoImpl.addProductReview(productReviewToAdd);
         if(!result){
             throw new ProductAlreadyExistException("Product already exists !");
         }
-        return result;
+        return true;
     }
 
-    boolean updateProductReview(ProductReview toUpdateProductReview) {
+    public boolean updateProductReview(ProductReview toUpdateProductReview) {
         boolean result = daoImpl.updateProductReview(toUpdateProductReview);
         if(!result){
             throw new ProductDoesNotExistException("Product does not exist !");
@@ -41,7 +41,7 @@ public class ProductService {
         return true;
     }
 
-    boolean deleteProductReview(String productId) {
+    public boolean deleteProductReview(String productId) {
         boolean result = daoImpl.deleteProductReview(productId);
         if(!result){
             throw new ProductDoesNotExistException("Product does not exist !");
