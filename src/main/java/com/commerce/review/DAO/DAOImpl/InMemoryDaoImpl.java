@@ -2,12 +2,11 @@ package com.commerce.review.DAO.DAOImpl;
 
 import com.commerce.review.DAO.ProductReviewDAO;
 import com.commerce.review.model.ProductReview;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+
 public class InMemoryDaoImpl implements ProductReviewDAO {
 
     private Map<String,ProductReview> productReviewMap = new HashMap<>();

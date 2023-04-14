@@ -5,12 +5,14 @@ import com.commerce.review.exception.ProductAlreadyExistException;
 import com.commerce.review.exception.ProductDoesNotExistException;
 import com.commerce.review.model.ProductReview;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductReviewService {
 
     @Autowired
+    @Qualifier("InMemoryDB")
     private ProductReviewDAO daoImpl;
 
     public ProductReviewService(ProductReviewDAO daoImpl) {
