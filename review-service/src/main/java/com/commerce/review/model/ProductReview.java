@@ -23,6 +23,14 @@ public class ProductReview {
         return productId;
     }
 
+    public int getAverageReviewScore() {
+        return averageReviewScore;
+    }
+
+    public int getNoOfReviews() {
+        return noOfReviews;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

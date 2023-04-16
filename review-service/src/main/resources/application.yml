@@ -5,18 +5,22 @@ my:
 app:
   id: ${appName:default_app}
 
----
 spring:
-  config:
-    activate:
-      on-profile: qa1
-my:
-  prop: QA1Profile
----
-spring:
-  config:
-    activate:
-      on-profile: qa2
-my:
-  prop: QA2Profile
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: none
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB:review-service-db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    initialization-mode: always
+    initialize: true
+    schema: classpath:/schema.sql
+    continue-on-error: true
+  cache:
+    type: redis
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
 

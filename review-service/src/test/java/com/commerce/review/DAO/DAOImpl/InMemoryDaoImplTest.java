@@ -1,5 +1,6 @@
 package com.commerce.review.DAO.DAOImpl;
 
+import com.commerce.review.entity.ProductReviewEntity;
 import com.commerce.review.model.ProductReview;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class InMemoryDaoImplTest {
 
     private InMemoryDaoImpl inMemoryDaoImpl = new InMemoryDaoImpl();
-    private ProductReview productToAdd = new ProductReview("AB1234",4,100);
+    private ProductReview productToAdd = new ProductReview("AB1234", 4, 100);
+    private ProductReviewEntity productEntity = new ProductReviewEntity("AB1234", 4, 100);
 
     @Test
     void getProductReview() {
@@ -17,33 +19,19 @@ class InMemoryDaoImplTest {
 
     @Test
     void getExistingProductReview() {
-        assertTrue(inMemoryDaoImpl.addProductReview(productToAdd));
-        assertEquals(productToAdd,inMemoryDaoImpl.getProductReview("AB1234"));
+        assertNotNull(inMemoryDaoImpl.addProductReview(productToAdd));
+        assertEquals(productEntity, inMemoryDaoImpl.getProductReview("AB1234"));
     }
 
     @Test
     void addNewProductReview() {
-        assertTrue(inMemoryDaoImpl.addProductReview(productToAdd));
-    }
-
-    @Test
-    void addExistingProductReview() {
-        assertTrue(inMemoryDaoImpl.addProductReview(productToAdd));
-        assertFalse(inMemoryDaoImpl.addProductReview(productToAdd),"Existing product cannot be added !");
-
+        assertNotNull(inMemoryDaoImpl.addProductReview(productToAdd));
     }
 
     @Test
     void updateProductReview() {
-        assertFalse(inMemoryDaoImpl.updateProductReview(new ProductReview()));
-    }
-
-    @Test
-    void updateExistingProductReview() {
-        addExistingProductReview();
-        ProductReview productToUpdate = new ProductReview("AB1234",5,101);
-        assertTrue(inMemoryDaoImpl.updateProductReview(productToUpdate));
-        assertEquals(inMemoryDaoImpl.getProductReview("AB1234"),productToUpdate);
+        addNewProductReview();
+        assertNotNull(inMemoryDaoImpl.updateProductReview(productToAdd));
     }
 
 

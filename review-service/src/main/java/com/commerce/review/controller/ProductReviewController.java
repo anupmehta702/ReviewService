@@ -16,7 +16,6 @@ public class ProductReviewController {
     @Value("${app.id}")
     private String appId;
 
-
     @Autowired
     ProductReviewService service;
 
