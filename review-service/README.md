@@ -3,16 +3,20 @@ This is a review service for products
 
 
 TODO 
-1) Change output to success output for POST, PUT and Delete 
+1) Add insert statements in DB for existing products 
 2) Correct WebsecurityConfig to use bcrypt for password
-2) change datatype of averageReview to double and noOfReviews to Long
+3) change datatype of averageReview to double and noOfReviews to Long
+4) know all properties of postgres that are used
+5) Add HTTPS to loadbalancer
+6) Add password in secret file 
+7) Read about networks in docker
+8) read about docker volume
+
+
+Done -
+1) Change output to success output for POST, PUT and Delete 
 3) Add database 
 4) Add cache
-5) know all properties of postgres that are used
-6) Add HTTPS to loadbalancer
-7) Add password in secret file 
-8) Read about networks in docker
-9) read about docker volume
 
 docker-compose commands - 
 1) go to base project 
@@ -27,8 +31,9 @@ docker run -d --name standalone-postgres-container -p 5432:5432 standalone-postg
 2) To enter postgres,
 docker exec -it 34a1678b7378 bash
 psql -U postgres
-/dt for list of tables
-/d+ <table-name>
+\c review-service-db
+\dt for list of tables
+\d+ <table-name>
 
 redis commands -
 1) To run standalone redis - 

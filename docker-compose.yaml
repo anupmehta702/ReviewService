@@ -1,7 +1,37 @@
+version: '3'
 services:
-    review-service-backend-1:
+    review-service-cache:
+        image: redis
+        container_name: review-service-cache
+        ports:
+            - "6379:6379"
+        networks:
+            - review-service-network
+            
+    review-service-db:
+        image: 'postgres:13.1-alpine'
+        container_name: review-service-db
         environment:
-            - app.name=backend-1    
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=review-service-db
+        ports:
+            - "5432:5432"
+        networks:
+            - review-service-network
+            
+    review-service-backend-1:
+        links:
+            - review-service-db
+            - review-service-cache
+        environment:
+            - appName=backend-1 
+            - POSTGRES_DB=review-service-db
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://review-service-db:5432/review-service-db
+            - SPRING_DATASOURCE_USERNAME=postgres
+            - SPRING_DATASOURCE_PASSWORD=password
+            - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+            - REDIS_HOST=review-service-cache
         build:
             context: ./review-service
             dockerfile: Dockerfile                
@@ -9,9 +39,21 @@ services:
             - 8181:8080
         networks:
             - review-service-network
+        depends_on:
+            - review-service-db
+            - review-service-cache
+            
     review-service-backend-2:
+        links:
+            - review-service-db    
         environment:
-            - app.name=backend-2
+            - appName=backend-2
+            - POSTGRES_DB=review-service-db
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://review-service-db:5432/review-service-db
+            - SPRING_DATASOURCE_USERNAME=postgres
+            - SPRING_DATASOURCE_PASSWORD=password
+            - SPRING_JPA_HIBERNATE_DDL_AUTO=update 
+            - REDIS_HOST=review-service-cache            
         build:
             context: ./review-service
             dockerfile: Dockerfile        
@@ -19,6 +61,35 @@ services:
             - 8282:8080
         networks:
             - review-service-network
+        depends_on:
+            - review-service-db    
+            - review-service-cache
+      
+    product-service-backend-1:         
+        links:
+            - review-service-db    
+        environment:
+            - reviewAPI=http://loadbalancer:9090/review/
+            - POSTGRES_DB=product-service-db
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://review-service-db:5432/product-service-db
+            - SPRING_DATASOURCE_USERNAME=postgres
+            - SPRING_DATASOURCE_PASSWORD=password
+            - SPRING_JPA_HIBERNATE_DDL_AUTO=update 
+            - REDIS_HOST=review-service-cache            
+        build:
+            context: ./product-service
+            dockerfile: Dockerfile        
+        ports:
+            - 8585:8585 
+        networks:
+            - review-service-network
+        depends_on:
+            - review-service-db    
+            - review-service-cache
+            - review-service-backend-1
+            - review-service-backend-2    
+            - loadbalancer
+            
     loadbalancer:
         build:
             context: ./loadbalancer
