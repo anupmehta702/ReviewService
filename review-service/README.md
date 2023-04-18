@@ -26,9 +26,3 @@ get name anup
 keys * // to get all keys
 get productReviewCache::AB1234
 
-
-### Reference - 
-1) Load balancer --> https://blog.devgenius.io/load-balancing-a-spring-boot-application-with-nginx-and-docker-e701f74c011d
-2) Postgres --> https://www.docker.com/blog/kickstart-your-spring-boot-application-development/
-             https://github.com/eugenp/tutorials/blob/master/docker-modules/docker-spring-boot-postgres/src/main/docker/docker-compose.yml 
-3) Redis --> https://medium.com/idomongodb/installing-redis-server-using-docker-container-453c3cfffbdf
