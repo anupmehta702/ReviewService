@@ -26,17 +26,16 @@ You can find the API details in /postman-api-collection
 ## Features 
 1) **High availability and designed for failure** - achieved via deploying multi instances of both services and using distributed cache across the instances. Also exceptions handled seperately in both service
 2) **Reusability** - Using common load balancer, postgres DB and Redis containers for both the services. AS per load requirements, we could have a dedicated DB and cache for both services
-3) **Junit** - good unit test coverage
+3) **Junit** - good unit test coverage with functional endpoint tests
 4) **Scalable** - design is scalable ,wherein as per load you can add / reduce number of service instances.
 5) **Containerized** - Every service is docker containerized and can be run collectively using docker-compose command.
 
 ## TODO / Work in progress
-1) Write integration tests that would spin up temporary postgres and redis container
-2) Currently not using docker volumes, include it and encrypt it
-3) Deploy seperate DB for product-service instead of using common postgres DB
-4) Use https instead of http for all API communication 
-5) Enhance docker network security
-6) Currently using Basic Auth for authentication, need to enhance the security using API gateway and JWT and API tokens
+1) Currently not using docker volumes, include it and encrypt it
+2) Deploy seperate DB for product-service instead of using common postgres DB
+3) Use https instead of http for all API communication 
+4) Enhance docker network security
+5) Currently using Basic Auth for authentication, need to enhance the security using API gateway and JWT and API tokens
 
 
 
