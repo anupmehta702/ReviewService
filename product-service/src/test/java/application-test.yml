@@ -1,0 +1,26 @@
+server:
+  port: 8585
+
+trust-store: classpath:addidas.jks
+trust-store-password: changeit
+
+review:
+  api: ${reviewAPI:http://localhost:8080/review/}
+
+spring:
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: none
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB:review-service-db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
+  cache:
+    type: redis
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
