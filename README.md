@@ -8,7 +8,7 @@ Below is the architecture diagram for the entire application .
 Note - All the components are deployed as docker containers via docker-compose
 
 ### Tools / services -
-1)**Nginx Load balancer** - Acts as load balancer for multi instances of product-service and review-service
+1) **Nginx Load balancer** - Acts as load balancer for multi instances of product-service and review-service
 2) **Postgres DB** - SQL DB for both services ( going forward we can always use seperate DBs as per requirement)
 3) **Redis cache** - Distributed cache for both services
 4) **review-service** - hosting /review CRUD APIs
