@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 public class DBDaoImpl implements ProductReviewDAO {
 
     @Autowired
-    ProductReviewRepository repository;
-readme
+    private ProductReviewRepository repository;
+
     @Cacheable(value = "productReviewCache", key = "#productId")
     @Override
     public ProductReviewEntity getProductReview(String productId) {
@@ -46,7 +46,4 @@ readme
                 productReview.getAverageReviewScore(), productReview.getNoOfReviews());
     }
 
-    private ProductReview getModelFrom(ProductReviewEntity entity) {
-        return new ProductReview(entity.getProductId(), entity.getAverageReviewScore(), entity.getNoOfReviews());
-    }
 }
