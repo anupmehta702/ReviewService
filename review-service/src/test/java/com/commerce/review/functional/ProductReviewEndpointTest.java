@@ -1,7 +1,8 @@
-package com.commerce.product.functional;
+package com.commerce.review.functional;
 
-import com.commerce.product.ProductApplication;
-import com.commerce.product.service.ProductReviewService;
+import com.commerce.review.DAO.ProductReviewDAO;
+import com.commerce.review.ReviewApplication;
+import com.commerce.review.model.ProductReview;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +13,11 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,19 +25,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("IntegrationTest")
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = {ProductApplication.class})
-@Import(ProductEndpointTest.ProductReviewTestContextConfiguration.class)
-public class ProductEndpointTest {
+        classes = {ReviewApplication.class})
+@Import(ProductReviewEndpointTest.ProductReviewTestContextConfiguration.class)
+public class ProductReviewEndpointTest {
 
+    private final String sampleProductId = "AB1234";
     @Autowired
     TestRestTemplate httpRestTemplate;
 
     @TestConfiguration
     static class ProductReviewTestContextConfiguration {
-        @Bean
-        ProductReviewService productReviewService() {
-            ProductReviewService service = new TestProductReviewService();
-            return service;
+        @Bean("dbDaoImpl")
+        @Primary
+        ProductReviewDAO dbDaoImpl() {
+            return new TestInMemoryDaoImpl();
         }
 
         @Bean
@@ -46,12 +51,22 @@ public class ProductEndpointTest {
 
 
     @Test()
-    void acceptOrders() {
+    void getReview() {
+        addReview();
         ResponseEntity response = httpRestTemplate
                 .withBasicAuth("user", "password")
-                .getForEntity("/product/" + "AB1234", String.class);
+                .getForEntity("/review/" + sampleProductId, ProductReview.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
+    }
+
+    @Test()
+    void addReview() {
+        ProductReview productReview = new ProductReview(sampleProductId,100,4);
+        ResponseEntity response = httpRestTemplate
+                .withBasicAuth("user", "password")
+                .postForEntity("/review/",productReview,String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
 

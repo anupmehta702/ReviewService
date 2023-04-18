@@ -1,16 +1,12 @@
 server:
-  port: 8585
+  port: 8080
 
-trust-store: classpath:addidas.jks
-trust-store-password: changeit
-
-review:
-  api: ${reviewAPI:http://localhost:8080/review/}
-  auth:
-    username: user
-    password: password
+app:
+  id: ${appName:default_app}
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate.ddl-auto: none
@@ -19,13 +15,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/${POSTGRES_DB:review-service-db}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:password}
-    initialization-mode: always
-    initialize: true
-    schema: classpath:/schema.sql
     continue-on-error: true
   cache:
     type: redis
   redis:
     host: ${REDIS_HOST:localhost}
     port: 6379
-  #spring.sql.init.continue-on-error: true
+

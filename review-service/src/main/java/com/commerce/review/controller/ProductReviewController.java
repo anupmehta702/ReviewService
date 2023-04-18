@@ -40,6 +40,7 @@ public class ProductReviewController {
 
     @GetMapping("{productId}")
     public ResponseEntity<ProductReview> getProductReview(@PathVariable String productId) {
+        System.out.println("Processing the request from instance --> " + appId);
         ProductReview productReview = service.getProductReview(productId);
         return ResponseEntity.ok(productReview);
     }

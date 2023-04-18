@@ -24,11 +24,16 @@ public class ReviewService {
     @Value("${review.api}")
     private String reviewAPI;
 
+    @Value("${review.auth.username}")
+    private String reviewBasicAuthUsername;
+
+    @Value("${review.auth.password}")
+    private String reviewBasicAuthPassword;
 
     public ProductReview getReview(String productId) {
         try {
             System.out.println("Calling api -->" + reviewAPI);
-            httpRestTemplate.getInterceptors().add(new BasicAuthenticationInterceptor("user","password"));
+            httpRestTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(reviewBasicAuthUsername,reviewBasicAuthPassword));
 
             ResponseEntity<ProductReview> response = httpRestTemplate.getForEntity(reviewAPI+productId,
                      ProductReview.class);
