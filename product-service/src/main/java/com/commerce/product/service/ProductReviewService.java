@@ -24,7 +24,7 @@ public class ProductReviewService {
         return getProductFrom(entity,review);
     }
 
-    public Product getProductFrom(ProductEntity entity,ProductReview review){
+    private Product getProductFrom(ProductEntity entity,ProductReview review){
         return new Product(entity.getProductId(),entity.getProductType(),entity.getName(),review);
     }
 }

@@ -39,7 +39,7 @@ public class ReviewService {
                 throw new ProductReviewNotFoundException("No review found for " +
                         "product id -->" + productId + " with response code as -->" + response.getStatusCode());
             }
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new ProductReviewNotFoundException("No review found for product id -->" + productId);
         }
