@@ -19,6 +19,9 @@ Navigate to the folder containing docker-compose.yaml and run below commands to 
 1) docker-compose build
 2) docker-compose up
 
+## API details 
+You can find the API details in /postman-api-collection
+
 
 ## Features 
 1) **High availability and designed for failure** - achieved via deploying multi instances of both services and using distributed cache across the instances. Also exceptions handled seperately in both service
