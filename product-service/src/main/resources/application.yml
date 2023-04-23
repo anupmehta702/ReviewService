@@ -1,14 +1,17 @@
 server:
   port: 8585
 
-trust-store: classpath:addidas.jks
-trust-store-password: changeit
+trust-store: classpath:ssl/externalProducts/externalProducts.jks
+trust-store-password: password
 
 review:
   api: ${reviewAPI:http://localhost:8080/review/}
   auth:
     username: user
     password: password
+
+externalProduct:
+  api: ${externalProductAPI:https://localhost:8443/addidas/api/products/}
 
 spring:
   jpa:

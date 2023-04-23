@@ -1,5 +1,6 @@
 package com.commerce.product.controller;
 
+import com.commerce.product.model.ExternalProduct;
 import com.commerce.product.model.Product;
 import com.commerce.product.model.ProductReview;
 import com.commerce.product.service.ProductReviewService;
@@ -27,11 +28,13 @@ class ProductControllerTest {
 
     @Test
     void getProductReview() {
-        Product product = new Product("AB1234","cosmetics","default",new ProductReview("AB1234",100,4));
+        ProductReview review = new ProductReview("AB1234", 100, 4);
+        ExternalProduct externalProduct = new ExternalProduct("AB1234", "msg", "US");
+        Product product = new Product("AB1234", "cosmetics", "default", review, externalProduct);
         when(productReviewService.getProductReviewDetailsFor("AB1234")).thenReturn(product);
 
         ResponseEntity<Product> response = controller.getProductReview("AB1234");
-        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(productReviewService, times(1)).getProductReviewDetailsFor("AB1234");
     }
 }

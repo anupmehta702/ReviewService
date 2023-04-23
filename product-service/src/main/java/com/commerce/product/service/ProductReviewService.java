@@ -2,8 +2,7 @@ package com.commerce.product.service;
 
 import com.commerce.product.DAO.ProductDAOImpl;
 import com.commerce.product.entity.ProductEntity;
-import com.commerce.product.exception.ProductNotFoundException;
-import com.commerce.product.exception.ProductReviewNotFoundException;
+import com.commerce.product.model.ExternalProduct;
 import com.commerce.product.model.Product;
 import com.commerce.product.model.ProductReview;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,17 @@ public class ProductReviewService {
     @Autowired
     ProductDAOImpl daoImpl;
 
-    public Product getProductReviewDetailsFor(String productId){
+    @Autowired
+    ExternalProductRestService externalProductRestService;
+
+    public Product getProductReviewDetailsFor(String productId) {
         ProductReview review = reviewService.getReview(productId);
         ProductEntity entity = daoImpl.getProduct(productId);
-        return getProductFrom(entity,review);
+        ExternalProduct externalProduct = externalProductRestService.getProduct(productId);
+        return getProductFrom(entity, review, externalProduct);
     }
 
-    private Product getProductFrom(ProductEntity entity,ProductReview review){
-        return new Product(entity.getProductId(),entity.getProductType(),entity.getName(),review);
+    private Product getProductFrom(ProductEntity entity, ProductReview review, ExternalProduct externalProduct) {
+        return new Product(entity.getProductId(), entity.getProductType(), entity.getName(), review, externalProduct);
     }
 }

@@ -4,4 +4,5 @@ WORKDIR /product-service
 COPY . .
 RUN mvn clean package install -DskipTests
 
-CMD mvn spring-boot:run
+# -Dcom.sun.jndi.ldap.objext.disableEndpointIdentification=true to exclude identification for externalProduct certificate
+CMD mvn spring-boot:run -Dcom.sun.jndi.ldap.objext.disableEndpointIdentification=true

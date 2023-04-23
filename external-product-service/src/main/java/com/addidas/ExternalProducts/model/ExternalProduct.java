@@ -18,14 +18,6 @@ public class ExternalProduct implements Serializable {
         this.location = location;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -45,8 +37,7 @@ public class ExternalProduct implements Serializable {
     @Override
     public String toString() {
         return "ExternalProduct{" +
-                "id='" + id + '\'' +
-                ", message='" + message + '\'' +
+                "message='" + message + '\'' +
                 ", location='" + location + '\'' +
                 '}';
     }
@@ -56,14 +47,12 @@ public class ExternalProduct implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExternalProduct that = (ExternalProduct) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(message, that.message) &&
+        return Objects.equals(message, that.message) &&
                 Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, message, location);
+        return Objects.hash(message, location);
     }
 }
-
