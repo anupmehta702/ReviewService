@@ -13,6 +13,7 @@ Note - All the components are deployed as docker containers via docker-compose
 3) **Redis cache** - Distributed cache for both services
 4) **review-service** - hosting /review CRUD APIs
 5) **product-service** - hosting /product API ( which internally calls /review/{productId} API of review service
+6) **external-product-service** - hosting https enabled /addidas/api/products API 
 
 ## Startup
 Navigate to the folder containing docker-compose.yaml and run below commands to deploy all the services  -
