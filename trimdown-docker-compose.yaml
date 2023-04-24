@@ -33,6 +33,8 @@ services:
         links:
             - review-service-db
             - review-service-cache
+        secrets:
+            - db-password    
         environment:
             - appName=backend-1 
             - POSTGRES_DB=review-service-db
@@ -45,41 +47,20 @@ services:
             context: ./review-service
             dockerfile: Dockerfile                
         ports:
-            - 8181:8080
+            - 8080:8080
         networks:
             - review-service-network
         depends_on:
             - review-service-db
             - review-service-cache
             
-    review-service-backend-2:
-        links:
-            - review-service-db
-        environment:
-            - appName=backend-2
-            - POSTGRES_DB=review-service-db
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://review-service-db:5432/review-service-db
-            - SPRING_DATASOURCE_USERNAME=postgres
-            - SPRING_DATASOURCE_PASSWORD=password
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=update 
-            - REDIS_HOST=review-service-cache            
-        build:
-            context: ./review-service
-            dockerfile: Dockerfile        
-        ports:
-            - 8282:8080
-        networks:
-            - review-service-network
-        depends_on:
-            - review-service-db    
-            - review-service-cache
-      
+          
     product-service-backend-1:         
         links:
             - review-service-db    
         environment:
             - externalProductAPI=https://external-product-service-backend:8443/addidas/api/products/
-            - reviewAPI=http://loadbalancer:9090/review/
+            - reviewAPI=http://review-service-backend-1:8080/review/
             - POSTGRES_DB=product-service-db
             - SPRING_DATASOURCE_URL=jdbc:postgresql://review-service-db:5432/review-service-db
             - SPRING_DATASOURCE_USERNAME=postgres
@@ -98,42 +79,6 @@ services:
             - review-service-cache
             - external-product-service-backend
 
-    product-service-backend-2:         
-        links:
-            - review-service-db    
-        environment:
-            - externalProductAPI=https://external-product-service-backend:8443/addidas/api/products/
-            - reviewAPI=http://loadbalancer:9090/review/
-            - POSTGRES_DB=product-service-db
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://review-service-db:5432/review-service-db
-            - SPRING_DATASOURCE_USERNAME=postgres
-            - SPRING_DATASOURCE_PASSWORD=password
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=update 
-            - REDIS_HOST=review-service-cache            
-        build:
-            context: ./product-service
-            dockerfile: Dockerfile        
-        ports:
-            - 8686:8585 
-        networks:
-            - review-service-network
-        depends_on:
-            - review-service-db    
-            - review-service-cache
-            
-    loadbalancer:
-        build:
-            context: ./loadbalancer
-            dockerfile: Dockerfile        
-        ports:
-            - 9090:9090
-        networks:
-            - review-service-network
-        depends_on:
-            - review-service-backend-1
-            - review-service-backend-2
-            - product-service-backend-1
-            - product-service-backend-2
 secrets:
   db-password:
     file: db/password.txt            
