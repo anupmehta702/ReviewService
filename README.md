@@ -3,7 +3,7 @@ This is a review service for products
 
 ## Architecture
 Below is the architecture diagram for the entire application .
-![image](https://user-images.githubusercontent.com/12785130/232682925-5f365906-329d-4a4d-9a6d-2d3c61bbf814.png)
+![image](https://user-images.githubusercontent.com/12785130/233911592-2ac61cf1-54cd-4311-847f-85d178678ae2.png)
 
 Note - All the components are deployed as docker containers via docker-compose
 
