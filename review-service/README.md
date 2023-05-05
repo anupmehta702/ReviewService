@@ -36,3 +36,12 @@ Note -> use --network=host since we are pointing to posgres using localhsot:5432
 ## spring command line
 in order to override any property you can use below command -
 mvn spring-boot:run -Dspring-boot.run.arguments=--spring.datasource.password=XYZ
+
+
+
+### Reference - 
+1) Load balancer --> https://blog.devgenius.io/load-balancing-a-spring-boot-application-with-nginx-and-docker-e701f74c011d
+                     https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/ 
+2) Postgres --> https://www.docker.com/blog/kickstart-your-spring-boot-application-development/
+             https://github.com/eugenp/tutorials/blob/master/docker-modules/docker-spring-boot-postgres/src/main/docker/docker-compose.yml 
+3) Redis --> https://medium.com/idomongodb/installing-redis-server-using-docker-container-453c3cfffbdf
